@@ -1,0 +1,30 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Testando as funcionalidades
+      id: testando-as-funcionalidades
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Testando as funcionalidades
+        setup-command: ''
+        command: make test-all
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTANDO-AS-FUNCIONALIDADES_RESULTS: "${{steps.testando-as-funcionalidades.outputs.result}}"
+      with:
+        runners: testando-as-funcionalidades
