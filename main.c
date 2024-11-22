@@ -8,7 +8,7 @@ p_vetor construirVetor(unsigned int qtd_itens){
 
     p_vetor vetor;
     vetor = malloc(sizeof(int) * qtd_itens);
-    return vetor;
+  return vetor;
 }
 p_matriz construirMatriz(unsigned int qtd_linhas, unsigned int qtd_colunas)
 
